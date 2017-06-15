@@ -83,7 +83,7 @@ Visualizer.prototype.draw = function() {
   // 全ての波形データを描画するために、一つの波形データのwidthを算出する。
   var barWidth = cw / this.analyserNode.frequencyBinCount;
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 1)';
   ctx.fillRect(0, 0, cw, ch);
 
   // analyserNode.frequencyBinCountはanalyserNode.fftSize / 2の数値。よって今回は1024。
@@ -91,9 +91,10 @@ Visualizer.prototype.draw = function() {
     var value = this.freqs[i]; // 配列には波形データ 0 ~ 255までの数値が格納されている。
     var percent = value / 255; // 255が最大値なので波形データの%が算出できる。
     var height = ch * percent; // %に基づく描画する高さを算出
-
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(i * barWidth, ch, barWidth, -height);  // -をつけないと下に描画されてしまう。
+    
+    ctx.arc(cw/2 ,ch/2 , barWidth, 0, Math.PI*2, false);
+    ctx.strokeStyle = "rgba(" + randfunc(0, 20) +", " + randfunc(250, 255) + ", " + randfunc(250, 255) + ", 1)";
+    ctx.stroke();
   }
 
   window.requestAnimationFrame(this.draw.bind(this));
@@ -111,3 +112,8 @@ var setUpRAF = function() {
 setUpRAF();
 var loader = new Loader('sample.mp3');
 loader.loadBuffer();
+
+//ランダム
+function randfunc(min, max){ // min ~ max - 1の乱数発生　例：１〜２の乱数ならば引数に1,3を渡す
+  return Math.floor(Math.random() * (max - min) + min);
+}
