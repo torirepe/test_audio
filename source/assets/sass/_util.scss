@@ -1,0 +1,61 @@
+//break point
+$breakpoints: (
+  'sp': 'screen and (max-width: 425px)',
+  'tb': 'screen and (min-width: 426px) and (max-width: 999px)',
+  'pc': 'screen and (min-width: 1000px)',
+) !default;
+@mixin mq($breakpoint: sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+//color
+$c-white: #fff;
+$c-black: #000;
+$c-blue: #314ffb;
+$c-red: #e83428;
+
+//font
+$f-sans: "Lato", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+$f-serif: "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "游明朝", YuMincho, "HG明朝E", "ＭＳ Ｐ明朝", serif;
+$f-kite: 'Kite One', sans-serif;
+
+//tool
+@mixin fzvw($px) {
+  font-size: $px / 640 * 100 + vw;
+}
+@mixin fz($px) {
+  @include mq(sp) {
+    font-size: $px * 1.4 / 640 * 100 + vw;
+  }
+  @include mq(tb) {
+    font-size: $px + px;
+  }
+  @include mq(pc) {
+    font-size: $px + px;
+  }
+}
+@mixin cols($sp, $tb, $pc) {
+  font-size: 0;
+  letter-spacing: 0;
+  li {
+    display: inline-block;
+    vertical-align: top;
+    @include mq(sp) {
+      &:nth-child($sp n+1) {
+        margin-left: 0 !important;
+      }
+    }
+    @include mq(tb) {
+      &:nth-child($tb n+1) {
+        margin-left: 0 !important;
+      }
+    }
+    @include mq(pc) {
+      &:nth-child($sp n+1) {
+        margin-left: 0 !important;
+      }
+    }
+  }
+}
